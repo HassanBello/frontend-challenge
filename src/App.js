@@ -82,7 +82,7 @@ const Home = (props) => {
   const chatId = useSelector(state => state.chatId);
 
   const messagesRef = firestore.collection('messages');
-  let query = messagesRef.where('chatId', "==", chatId)
+  let query = messagesRef.where('chatId', "==", chatId).where('uid', "==", userId)
   const [messageData] = useCollectionData(query, { idField: 'id' });
   const dispatch = useDispatch();
 
