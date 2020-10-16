@@ -16,8 +16,7 @@ height: 100vh;
 color: #dcddb7;
 `
 export const sideBarItems = styled.div`
-border-bottom: 1px solid #dcddb7;
-border-top: 1px solid #dcddb7;
+border-bottom: 0.5px solid #dcddb7;
 padding: 15px 25px;
 display: flex;
 justify-content: flex-start;

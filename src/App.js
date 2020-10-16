@@ -3,8 +3,7 @@ import './App.css';
 import * as Styles from "./utils/home.css"
 import firebase from 'firebase';
 import { SET_AUTH_ID, SET_CHAT_ID } from "./store/types";
-import "firebase/auth";
-import "firebase/database";
+import 'firebase/auth';
 import 'firebase/firestore';
 import { useDispatch, useSelector } from "react-redux";
 import { useAuthState } from 'react-firebase-hooks/auth';
