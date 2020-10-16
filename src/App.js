@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import * as Styles from "./utils/home.css"
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import { SET_AUTH_ID, SET_CHAT_ID } from "./store/types";
 import "firebase/auth";
 import "firebase/database";
@@ -115,7 +115,7 @@ const Home = (props) => {
       <Styles.sideBar>
         {props.userData && props.userData.map((item) => (
           <Styles.sideBarItems onClick={() => setCHatid(item.id)} key={item.id}>
-            {item.Name}
+          <Styles.StyledAvatar src={item.image} />   {item.Name}
           </Styles.sideBarItems>
         ))}
       </Styles.sideBar>

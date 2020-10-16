@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const homeWrapper = styled.div`
 display: flex;
+background: radial-gradient(circle, #222831, #1f1f26, #19171b, #110d0f, #000000);
 `
 
 export const sideBar = styled.aside`
@@ -17,10 +18,11 @@ color: #dcddb7;
 export const sideBarItems = styled.div`
 border-bottom: 1px solid #dcddb7;
 border-top: 1px solid #dcddb7;
-padding: 30px 5px;
+padding: 15px 25px;
 display: flex;
-justify-content: center;
+justify-content: flex-start;
 cursor: pointer;
+align-items: center;
 `
 
 export const chatWindow = styled.main`
@@ -28,15 +30,15 @@ flex: 1;
 height: 100vh;
 display: flex;
 flex-direction: column;
-background: url(https://res.cloudinary.com/dfqkwnen0/image/upload/v1602715198/ws_WhatsApp_Background_1920x1080_ggrmj4.jpg);
+background: radial-gradient(circle, #222831, #1f1f26, #19171b, #110d0f, #000000);
 `
 
 export const MessageRow = styled.div`
 display: flex;
 flex-direction: row;
 width: 98%;
-padding: 5px 0px;
-justify-content: end`
+padding: 2px 0px;
+justify-content: flex-end`
 
 export const MessageBox = styled.div`
 max-width: 500px;
@@ -46,7 +48,7 @@ position: relative;
 color: #fff;
 text-align: center;
 border-radius: 5px;
-background: #262d31;
+background: #1e5f74;
 `
 export const InputWrapper = styled.form`
 display: flex;
@@ -82,7 +84,7 @@ overflow-x: hidden;
 overflow-y: scroll;
 white-space: nowrap;
 scrollbar-width: thin;
-scrollbar-color: light;
+scrollbar-color: black black;
 `
 export const StyledHeader = styled.header`
 display: flex;
@@ -114,4 +116,10 @@ width: 100%;
 background: #262d31;
 justify-content: center;
 align-items: center;
+`
+
+export const StyledAvatar = styled.img`
+border-radius: 50%;
+height: 50px;
+margin-right: 15px;
 `
