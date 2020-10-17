@@ -24,9 +24,17 @@ function SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   }
+  const signInWithGitHub = () => {
+    const provider = new firebase.auth.GithubAuthProvider();
+    auth.signInWithPopup(provider);
+  }
+
   return (
     <Styles.StyledWrapper>
-      <Styles.LoginButton onClick={signInWithGoogle}>Sign in with Google</Styles.LoginButton>
+      <Styles.LoginButton onClick={signInWithGoogle}>Sign in with Google
+       </Styles.LoginButton>
+      <Styles.LoginButton onClick={signInWithGitHub}>Sign in with Github 
+      </Styles.LoginButton>
     </Styles.StyledWrapper>
   )
 }
