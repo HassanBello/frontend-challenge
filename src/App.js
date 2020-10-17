@@ -40,7 +40,6 @@ function SignOut() {
 function App() {
   const [user] = useAuthState(auth)
   const dispatch = useDispatch();
-  const [navShow, setNavShow] = useState(false);
 
   //Set State if User is logged on
   if (user) {
