@@ -11,3 +11,11 @@ a{
 body {
   margin: 0;
 }
+
+.test{
+  flex-shrink: 0;
+}
+
+.otherTest{
+  flex-grow: 1;
+}

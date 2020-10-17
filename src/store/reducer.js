@@ -2,7 +2,8 @@ import * as types from './types';
 
 const initialState = {
     userId: '',
-    chatId: ''
+    chatId: '',
+    navShow: false
 }
 
 const appReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 chatId: action.value
+            }
+        case types.SET_NAV_STATUS:
+            return {
+                ...state,
+                navShow: !state.navShow
             }
         default:
             return state

@@ -4,38 +4,43 @@ import media from "../utils/media"
 
 export const homeWrapper = styled.div`
 display: flex;
+height: 93vh;
+${media.phone`height: 94vh`};
+${media.phablet`height: 95vh`};
 background: radial-gradient(circle, #222831, #1f1f26, #19171b, #110d0f, #000000);
 `
 
 export const chatWindow = styled.main`
 flex: 1;
-height: 100vh;
 display: flex;
 flex-direction: column;
-width: ${props => {
+ ${props => {
         switch (props.show) {
             case true:
-                return `50%;`
+                return `width: 50% !important;`
+            case false:
+                return `width: 80% !important;`
             default:
-                return `80%;`
+                return `width: 80%;`
         }
     }}
+${media.tablet`width: 100%`}
 background: radial-gradient(circle, #222831, #1f1f26, #19171b, #110d0f, #000000);
 `
 
 export const sideBar = styled.aside`
-width: ${props => {
-    switch (props.show) {
-        case true:
-            return `50%;`
-        default:
-            return `20%;`
-    }
-}}
+ ${props => {
+        switch (props.show) {
+            case true:
+                return `width: 50% !important;`
+            default:
+                return `width: 20%;`
+        }
+    }}
+${media.tablet`width: 0;`}
 display: flex;
 flex-direction: column;
 background: #131c21;
-height: 100vh;
 color: #dcddb7;
 `
 export const sideBarItems = styled.div`
@@ -81,9 +86,6 @@ ${media.tablet`max-width: 250px`};
 `
 export const InputWrapper = styled.form`
 display: flex;
-width: 100%;
-position: fixed;
-bottom: 0;
 background: #262d31;
 padding: 10px;
 justify-content: flex-start;
@@ -95,7 +97,7 @@ padding: 8px 10px;
 ${media.tablet`width: 220px`};
 ${media.tiny`width: 190px`};
 ${media.phone`width: 200px`};
-width: 73%;
+width: 90%;
 color: #fff;
 background: #33383b;
 border: none;
@@ -104,16 +106,17 @@ export const SendButton = styled.button`
 padding: 8px 10px;
 background: none;
 border: none;
+cursor: pointer;
 `
 export const ChatHolder = styled.div`
 display: flex;
 flex-direction: column;
-height: 510px;
+max-height: 80vh;
 overflow-x: hidden;
 overflow-y: scroll;
 white-space: nowrap;
 scrollbar-width: thin;
-scrollbar-color: black black;
+scrollbar-color: #343a3d black;
 ${media.tablet`height: 100%`};
 `
 export const StyledHeader = styled.header`

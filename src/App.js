@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import * as Styles from "./utils/home.css"
 import firebase from 'firebase/app';
-import { SET_AUTH_ID, SET_CHAT_ID } from "./store/types";
+import { SET_AUTH_ID, SET_CHAT_ID, SET_NAV_STATUS } from "./store/types";
 import 'firebase/auth';
 import 'firebase/firestore';
 import { useDispatch, useSelector } from "react-redux";
@@ -63,12 +63,19 @@ function App() {
     });
   }
 
+  //Set Navshow
+  const setNas = () => {
+    dispatch({
+      type: SET_NAV_STATUS
+    });
+  }
+
   return (
     <>
       <Styles.StyledHeader>
         {
           auth.currentUser && 
-          <Styles.StyledDrawerTrigger onClick={() => setNavShow(!navShow)}>
+          <Styles.StyledDrawerTrigger onClick={() => setNas()} >
             <svg width="25" height="15" viewBox="0 0 25 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M0.739958 1.75733H24.26C24.6564 1.75733 25 1.38076 25 0.878666C25 0.376571 24.6829 0 24.26 0H0.739958C0.343552 0 0 0.376571 0 0.878666C0 1.38076 0.343552 1.75733 0.739958 1.75733Z"
@@ -84,18 +91,18 @@ function App() {
         }
         <SignOut />
       </Styles.StyledHeader>
-      <div>
-        {user ? <Home navStatus={navShow} userData={users} /> : <SignIn />}
-      </div>
+        {user ? <Home userData={users} /> : <SignIn />}
     </>
   );
 }
 
 
 const Home = (props) => {
+
   const [formValue, setFormValue] = useState('');
   const userId = useSelector(state => state.userId);
   const chatId = useSelector(state => state.chatId);
+  const navShow = useSelector(state => state.navShow);
 
   const messagesRef = firestore.collection('messages');
   let query = messagesRef.where('chatId', "==", chatId).where('uid', "==", userId)
@@ -128,23 +135,27 @@ const Home = (props) => {
 
   return (
     <Styles.homeWrapper>
-      <Styles.sideBar show={props.navStatus} >
+      <Styles.sideBar show={navShow} >
         {props.userData && props.userData.map((item) => (
           <Styles.sideBarItems key={item.id} status={item.id === `${chatId}` ? 1 : 0} onClick={() => setCHatid(item.id)} >
             <Styles.StyledAvatar src={item.image} />   {item.Name}
           </Styles.sideBarItems>
         ))}
       </Styles.sideBar>
-      <Styles.chatWindow  show={props.navStatus} >
+      <Styles.chatWindow  show={navShow} >
+        <div className="otherTest">
         <Styles.ChatHolder>
           {messageData && messageData.map((item) => <ChatMessage data={item} key={item.createdAt} />)}
         </Styles.ChatHolder>
+        </div>
+        <div className="test">
         <Styles.InputWrapper onSubmit={sendMessage}>
           <Styles.StyledInput value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type A Message" />
           <Styles.SendButton type="submit" disabled={!formValue}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path></svg>
           </Styles.SendButton >
         </Styles.InputWrapper>
+        </div>
       </Styles.chatWindow>
     </Styles.homeWrapper>
   );
