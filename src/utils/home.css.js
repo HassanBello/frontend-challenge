@@ -141,7 +141,9 @@ border: none;
 color: #fff;
 border-radius: 5px;
 cursor: pointer;
-font-size: 25px;
+font-size: 21px;
+margin-right: 10px;
+text-transform: capitalize;
 `
 
 export const StyledWrapper = styled.div`
