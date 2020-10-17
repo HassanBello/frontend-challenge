@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import * as Styles from "./utils/home.css"
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { SET_AUTH_ID, SET_CHAT_ID } from "./store/types";
 import 'firebase/auth';
 import 'firebase/firestore';
@@ -26,7 +26,7 @@ function SignIn() {
   }
   return (
     <Styles.StyledWrapper>
-          <Styles.LoginButton onClick={signInWithGoogle}>Sign in with Google</Styles.LoginButton>
+      <Styles.LoginButton onClick={signInWithGoogle}>Sign in with Google</Styles.LoginButton>
     </Styles.StyledWrapper>
   )
 }
@@ -40,6 +40,7 @@ function SignOut() {
 function App() {
   const [user] = useAuthState(auth)
   const dispatch = useDispatch();
+  const [navShow, setNavShow] = useState(false);
 
   //Set State if User is logged on
   if (user) {
@@ -65,10 +66,26 @@ function App() {
   return (
     <>
       <Styles.StyledHeader>
+        {
+          auth.currentUser && 
+          <Styles.StyledDrawerTrigger onClick={() => setNavShow(!navShow)}>
+            <svg width="25" height="15" viewBox="0 0 25 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.739958 1.75733H24.26C24.6564 1.75733 25 1.38076 25 0.878666C25 0.376571 24.6829 0 24.26 0H0.739958C0.343552 0 0 0.376571 0 0.878666C0 1.38076 0.343552 1.75733 0.739958 1.75733Z"
+                fill="#fff" />
+              <path
+                d="M24.26 6.65253H0.739958C0.343552 6.65253 0 7.0291 0 7.53119C0 8.03329 0.317125 8.40986 0.739958 8.40986H24.26C24.6564 8.40986 25 8.03329 25 7.53119C25 7.0291 24.6564 6.65253 24.26 6.65253Z"
+                fill="#fff" />
+              <path
+                d="M24.26 13.2427H0.739958C0.343552 13.2427 0 13.6192 0 14.1213C0 14.6234 0.317125 15 0.739958 15H24.26C24.6564 15 25 14.6234 25 14.1213C25 13.6192 24.6564 13.2427 24.26 13.2427Z"
+                fill="#fff" />
+            </svg>
+          </Styles.StyledDrawerTrigger>
+        }
         <SignOut />
       </Styles.StyledHeader>
       <div>
-        {user ? <Home userData={users} /> : <SignIn />}
+        {user ? <Home navStatus={navShow} userData={users} /> : <SignIn />}
       </div>
     </>
   );
@@ -111,21 +128,21 @@ const Home = (props) => {
 
   return (
     <Styles.homeWrapper>
-      <Styles.sideBar>
+      <Styles.sideBar show={props.navStatus} >
         {props.userData && props.userData.map((item) => (
-          <Styles.sideBarItems onClick={() => setCHatid(item.id)} key={item.id}>
-          <Styles.StyledAvatar src={item.image} />   {item.Name}
+          <Styles.sideBarItems key={item.id} status={item.id === `${chatId}` ? 1 : 0} onClick={() => setCHatid(item.id)} >
+            <Styles.StyledAvatar src={item.image} />   {item.Name}
           </Styles.sideBarItems>
         ))}
       </Styles.sideBar>
-      <Styles.chatWindow>
+      <Styles.chatWindow  show={props.navStatus} >
         <Styles.ChatHolder>
-          {messageData && messageData.map((item) => <ChatMessage data={item} />)}
+          {messageData && messageData.map((item) => <ChatMessage data={item} key={item.createdAt} />)}
         </Styles.ChatHolder>
         <Styles.InputWrapper onSubmit={sendMessage}>
           <Styles.StyledInput value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type A Message" />
           <Styles.SendButton type="submit" disabled={!formValue}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="#fff" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path></svg>
           </Styles.SendButton >
         </Styles.InputWrapper>
       </Styles.chatWindow>
@@ -137,7 +154,7 @@ const ChatMessage = (props) => {
   const userId = useSelector(state => state.userId);
   const messageStatus = props.uid === userId ? 'Sender' : 'Receiver;'
   return (
-    <Styles.MessageRow key={props.data.uid + Math.floor(Math.random() * Math.floor(40000))} messageStatus={messageStatus} >
+    <Styles.MessageRow messageStatus={messageStatus} >
       <Styles.MessageBox>
         {props.data.text}
       </Styles.MessageBox>
