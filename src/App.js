@@ -113,7 +113,7 @@ const Home = (props) => {
 
   const messagesRef = firestore.collection('messages');
   let query = messagesRef.where('chatId', "==", chatId).where('uid', "==", userId)
-  const [messageData] = useCollectionData(query, { idField: 'id' });
+  const [messageData, isLoading] = useCollectionData(query, { idField: 'id' });
   const dispatch = useDispatch();
 
   if (messageData) {
@@ -152,7 +152,7 @@ const Home = (props) => {
       <Styles.chatWindow  show={navShow} >
         <div className="otherTest">
         <Styles.ChatHolder>
-          {messageData && messageData.map((item) => <ChatMessage data={item} key={item.createdAt} />)}
+          {!isLoading && messageData.map((item) => <ChatMessage data={item} key={item.createdAt} />)}
         </Styles.ChatHolder>
         </div>
         <div className="test">

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-// import { fadeIn } from "../utils/animations"
+import { fadeIn } from "../utils/animations"
 import media from "../utils/media"
 
 export const homeWrapper = styled.div`
@@ -82,6 +82,7 @@ max-width: 350px;
 word-wrap: break-word;
 white-space: pre-wrap;
 text-align: left;
+animation: ${fadeIn} 0.2s ease 0s 1 normal none;
 ${media.tablet`max-width: 250px`};
 `
 export const InputWrapper = styled.form`

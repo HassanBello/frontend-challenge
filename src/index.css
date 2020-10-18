@@ -19,3 +19,11 @@ body {
 .otherTest{
   flex-grow: 1;
 }
+
+button{
+  outline: none;
+}
+
+button:focus{
+  outline: none;
+}
