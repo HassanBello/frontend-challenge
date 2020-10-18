@@ -118,6 +118,21 @@ white-space: nowrap;
 scrollbar-width: thin;
 scrollbar-color: #343a3d black;
 ${media.tablet`height: 100%`};
+&::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: inherit;
+    border-radius: 6px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #1e5f74;
+    border-radius: 6px;
+    border: 3px solid inherit;
+  }
 `
 export const StyledHeader = styled.header`
 display: flex;
